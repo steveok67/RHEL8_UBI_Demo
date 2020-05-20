@@ -1,0 +1,14 @@
+FROM registry.access.redhat.com/ubi8/ubi
+
+RUN dnf install -y dnsmasq
+
+RUN dnf install --setopt=tsflags=nodocs -y \
+	iproute bind-utils iputils iperf3 lksctp-tools net-tools procps \
+	mtr tcpdump traceroute less tree && \
+	dnf clean all && \
+	rm -rf /var/cache/dnf
+	
+#VOLUME ["/etc/dnsmasq"]
+
+EXPOSE 53/tcp 53/udp 69/udp
+CMD ["sleep infinity"]
